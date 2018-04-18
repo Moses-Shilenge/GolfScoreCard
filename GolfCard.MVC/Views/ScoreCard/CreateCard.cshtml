@@ -1,0 +1,148 @@
+﻿@model IList<GolfCard.MVC.Models.ScoreCardView>
+
+@{
+    ViewBag.Title = "CreateCard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    input {
+        width: 26px;
+    }
+
+    .nameTextColumn {
+        width: 170px;
+    }
+</style>
+
+<h2>Score Card</h2>
+<br/>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                HOLES
+            </th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>IN</th>
+            <th>10</th>
+            <th>11</th>
+            <th>12</th>
+            <th>13</th>
+            <th>14</th>
+            <th>15</th>
+            <th>16</th>
+            <th>17</th>
+            <th>18</th>
+            <th>OUT</th>
+            <th>TOTAL</th>
+            <th>HANDICAP</th>
+            <th>NET</th>
+        </tr>
+        <tr>
+            <th>
+                YARDS
+            </th>
+            <th>365</th>
+            <th>423</th>
+            <th>230</th>
+            <th>463</th>
+            <th>421</th>
+            <th>210</th>
+            <th>522</th>
+            <th>407</th>
+            <th>465</th>
+            <th>3421</th>
+            <th>537</th>
+            <th>375</th>
+            <th>168</th>
+            <th>358</th>
+            <th>395</th>
+            <th>425</th>
+            <th>513</th>
+            <th>375</th>
+            <th>510</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                PAR
+            </th>
+            <th>4</th>
+            <th>4</th>
+            <th>3</th>
+            <th>4</th>
+            <th>4</th>
+            <th>4</th>
+            <th>3</th>
+            <th>5</th>
+            <th>4</th>
+            <th>39</th>
+            <th>4</th>
+            <th>5</th>
+            <th>4</th>
+            <th>3</th>
+            <th>4</th>
+            <th>4</th>
+            <th>4</th>
+            <th>5</th>
+            <th>4</th>
+            <th>33</th>
+            <th>72</th>
+            <th></th>
+            <th>72</th>
+        </tr>
+        @for (int i = 0; i < 5; i++)
+        {
+            <tr>
+                <td>
+                    @Html.TextBoxFor(x => x[i].Player, new { @class = "nameTextColumn" })
+                </td>
+                @for (int j = 0; j < 9; j++)
+                {
+                    <td>
+                        @Html.TextBoxFor(x => x[i].Hole)
+                    </td>
+                }
+                <td>
+
+                    @Html.DisplayFor(x => x[i].IN_1)
+
+                </td>
+                @for (int j = 0; j < 9; j++)
+                {
+                    <td>
+                        @Html.TextBoxFor(x => x[i].Hole)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(x => x[i].IN_2)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x[i].OUT)
+                </td>
+                <td>@Html.TextBoxFor(x => x[i].HandiCap)</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+    <br/>
+
+    <button class="btn btn-primary">
+        Calculate Scores
+    </button>
+}
