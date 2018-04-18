@@ -20,3 +20,6 @@ I am also new to Golf, so to make life easier I've added the two links which hel
 
 * https://www.youtube.com/watch?v=UO4Zri-H3AE
 * https://www.youtube.com/watch?v=cZelYhBaE2M&t=25s
+
+## Setup
+I've added a Resource folder containing a database backup. You can restore and the run the project using the backup.
