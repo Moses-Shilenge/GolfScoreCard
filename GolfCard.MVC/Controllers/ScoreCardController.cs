@@ -40,19 +40,22 @@ namespace GolfCard.MVC.Controllers
         {
             IEnumerable<Game> scores = new List<Game>();
 
-            var playerScores = scorecard.Where(p => p.Player != null).ToList();
-            
-           if (playerScores.Any())
+            var playerScores = scorecard.Where(p => p.Player != null).Where(s => !s.Hole.Contains(0)).ToList();
+
+            if (playerScores.Any())
             {
                 scores = _golfScoreCardLogic.WorkOutScore(_golfScoreMapper.MapToGameModel(playerScores)).Result;
                 _golfScoreCardLogic.SaveScores(scores);
+
+                var scoreboard = _golfScoreMapper.MapToScoreCardView(scores);
+
+                return RedirectToAction("ViewScoreCard", scoreboard);
             }
-           else
-               return new HttpStatusCodeResult(404, "The scorecard contains invalid entries.\nPlease insert a player name and all the shots before clicking on the SUBMIT button.");
-
-            var scoreboard = _golfScoreMapper.MapToScoreCardView(scores);
-
-            return RedirectToAction("ViewScoreCard", scoreboard);
+            else
+            {
+                ViewBag.ErrorMessage = "The scorecard contains invalid entries.\nPlease insert a player name and all the shots before clicking on the SUBMIT button.";
+                return View();
+            }                      
         }
     }
 }

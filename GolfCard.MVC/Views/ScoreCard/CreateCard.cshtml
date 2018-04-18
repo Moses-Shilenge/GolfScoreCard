@@ -17,6 +17,10 @@
 
 <h2>Score Card</h2>
 <br/>
+<p class="alert-danger">
+    @ViewBag.ErrorMessage
+</p>
+<br/>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -112,22 +116,18 @@
                 <td>
                     @Html.TextBoxFor(x => x[i].Player, new { @class = "nameTextColumn" })
                 </td>
-                @for (int j = 0; j < 9; j++)
+                @for (int j = 0; j < 18; j++)
                 {
                     <td>
                         @Html.TextBoxFor(x => x[i].Hole)
                     </td>
-                }
-                <td>
 
-                    @Html.DisplayFor(x => x[i].IN_1)
-
-                </td>
-                @for (int j = 0; j < 9; j++)
-                {
-                    <td>
-                        @Html.TextBoxFor(x => x[i].Hole)
-                    </td>
+                    if (j == 9)
+                    {
+                        <td>
+                            @Html.DisplayFor(x => x[i].IN_1)
+                        </td>
+                    }
                 }
                 <td>
                     @Html.DisplayFor(x => x[i].IN_2)
@@ -135,13 +135,17 @@
                 <td>
                     @Html.DisplayFor(x => x[i].OUT)
                 </td>
-                <td>@Html.TextBoxFor(x => x[i].HandiCap)</td>
+                <td>
+                    @Html.TextBoxFor(x => x[i].HandiCap)
+                </td>
                 <td></td>
             </tr>
         }
     </table>
     <br/>
-
+    <p class="alert-info">
+        Make sure each entry has a Player Name and Score for every hole indexed 1 to 18. Any imcomplete entry will be ignored. 
+    </p>
     <button class="btn btn-primary">
         Calculate Scores
     </button>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foolproof;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace GolfCard.MVC.Models
     {
         public Guid Id { get; set; }
         public string Player { get; set; }
+        [RequiredIfTrue("Player")]
         public List<int> Hole { get; set; }
         public int IN_1 { get; set; }
         public int IN_2 { get; set; }
