@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GolfCard.Core", "GolfCard.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{13AFECEF-E7B0-4200-86C2-70E945260DF1}"
 	ProjectSection(SolutionItems) = preProject
+		D:\sql\GolfScoreCardDBBackUp = D:\sql\GolfScoreCardDBBackUp
+		..\..\..\Users\moses.shilenge\Documents\GolfScoresExcel.xlsx = ..\..\..\Users\moses.shilenge\Documents\GolfScoresExcel.xlsx
 		..\..\FinDocUI\README.md = ..\..\FinDocUI\README.md
 	EndProjectSection
 EndProject
