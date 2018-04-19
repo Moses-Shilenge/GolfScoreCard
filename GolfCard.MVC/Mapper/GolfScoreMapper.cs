@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System;
 using GolfCard.Core.Services;
 using GolfCard.SqlClient.DTO;
+using GolfCard.Core.Business_Logic;
 
 namespace GolfCard.MVC.Mapper
 {
     public class GolfScoreMapper
     {
         private ITeeRepository _teeRepository;
+        private GolfScoreCardLogic _golfScoreCardLogic;
 
         public GolfScoreMapper()
         {
             _teeRepository = new TeeRepository();
+            _golfScoreCardLogic = new GolfScoreCardLogic();
         }
 
         public IEnumerable<Game> MapToGameModel(IList<ScoreCardView> card)
@@ -23,6 +26,7 @@ namespace GolfCard.MVC.Mapper
             {
                 mappedResult.Add(new Game()
                 {
+                    Id = item.Id,
                     Player = new SqlClient.DTO.Player
                     {
                         Name = item.Player
@@ -52,6 +56,32 @@ namespace GolfCard.MVC.Mapper
             return shots;
         }
 
+        internal List<StableFord> CalculatePointsAndMap(IEnumerable<Game> PlayerScores)
+        {
+            var stableFordRes = new List<StableFord>();
+
+            foreach (var score in PlayerScores)
+            {
+                var handicapAllocation = _golfScoreCardLogic.CalculateStableFord(score);
+
+                stableFordRes.Add(new StableFord
+                {
+                    Id = score.Id,
+                    Player = score.Player.Name,
+                    HandiCap = score.HCP,
+                    Hole = MapShotsToScoreCardView(score.Shots),
+                    Points = handicapAllocation,
+                    IN = score.IN,
+                    OUT = score.OUT,
+                    TOT = score.TOT,
+                    NET = score.NET,
+                    StableFordsPoints = _golfScoreCardLogic.SumUpPoints(handicapAllocation)
+                });
+            }
+
+            return stableFordRes;
+        }
+
         internal IList<ScoreCardView> MapToScoreCardView(IEnumerable<Game> playerScores)
         {
             var scoreView = new List<ScoreCardView>();
@@ -64,9 +94,9 @@ namespace GolfCard.MVC.Mapper
                     Player = player.Player.Name,
                     HandiCap = player.HCP,
                     Hole = MapShotsToScoreCardView(player.Shots),
-                    IN_1 = player.IN_1,
-                    IN_2 = player.IN_2,
+                    IN = player.IN,
                     OUT = player.OUT,
+                    TOT = player.TOT,
                     NET = player.NET
                 });
             }

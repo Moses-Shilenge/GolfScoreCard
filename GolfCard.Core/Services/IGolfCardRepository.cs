@@ -11,5 +11,8 @@ namespace GolfCard.Core.Services
     {
         void SaveCard(IEnumerable<Game> scores);
         IEnumerable<Game> GetScoreBoard();
+        IList<Tee> GetAllParsFromTees();
+        Game GetGameById(Guid id);
+        void EditCard(Game game);
     }
 }

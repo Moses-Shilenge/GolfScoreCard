@@ -25,8 +25,16 @@ namespace GolfCard.MVC.Controllers
         public ActionResult ViewScoreCard()
         {
 
-            var scores = _golfScoreCardLogic.GetScores(); 
+            var scores = _golfScoreCardLogic.GetScores();
             var scoreboard = _golfScoreMapper.MapToScoreCardView(scores);
+            return View(scoreboard);
+        }
+
+        public ActionResult ViewStableScoring()
+        {
+
+            var scores = _golfScoreCardLogic.GetScores();
+            var scoreboard = _golfScoreMapper.CalculatePointsAndMap(scores);
             return View(scoreboard);
         }
 
@@ -56,6 +64,22 @@ namespace GolfCard.MVC.Controllers
                 ViewBag.ErrorMessage = "The scorecard contains invalid entries.\nPlease insert a player name and all the shots before clicking on the SUBMIT button.";
                 return View();
             }                      
+        }
+
+        public ActionResult EditCard(Guid Id)
+        {
+            var player = _golfScoreCardLogic.GetGameById(Id);
+            var scoreboard = (_golfScoreMapper.MapToScoreCardView(new List<Game>() { player }));
+            return View(scoreboard.FirstOrDefault());
+        }
+        
+        // This function results in a bug, fix TODO
+        [HttpPut]
+        public ActionResult EditCard(ScoreCardView scoreCardView)
+        {
+            var scores = _golfScoreCardLogic.WorkOutScore(_golfScoreMapper.MapToGameModel(new List<ScoreCardView>() { scoreCardView })).Result;
+            _golfScoreCardLogic.EditScores(scores.FirstOrDefault());
+            return RedirectToAction("ViewScoreCard");
         }
     }
 }

@@ -7,13 +7,13 @@ namespace GolfCard.SqlClient.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class Redo_Migration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Redo_Migration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804161150088_Initial"; }
+            get { return "201804190610485_Redo_Migration"; }
         }
         
         string IMigrationMetadata.Source

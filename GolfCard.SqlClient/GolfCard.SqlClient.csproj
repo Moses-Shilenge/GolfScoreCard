@@ -53,17 +53,9 @@
     <Compile Include="DTO\Tee.cs" />
     <Compile Include="DTO\Player.cs" />
     <Compile Include="DTO\Shot.cs" />
-    <Compile Include="Migrations\201804161150088_Initial.cs" />
-    <Compile Include="Migrations\201804161150088_Initial.Designer.cs">
-      <DependentUpon>201804161150088_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804161211153_ScoreField_Added.cs" />
-    <Compile Include="Migrations\201804161211153_ScoreField_Added.Designer.cs">
-      <DependentUpon>201804161211153_ScoreField_Added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804170815394_NormalizedTables.cs" />
-    <Compile Include="Migrations\201804170815394_NormalizedTables.Designer.cs">
-      <DependentUpon>201804170815394_NormalizedTables.cs</DependentUpon>
+    <Compile Include="Migrations\201804190610485_Redo_Migration.cs" />
+    <Compile Include="Migrations\201804190610485_Redo_Migration.Designer.cs">
+      <DependentUpon>201804190610485_Redo_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -75,14 +67,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161150088_Initial.resx">
-      <DependentUpon>201804161150088_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804161211153_ScoreField_Added.resx">
-      <DependentUpon>201804161211153_ScoreField_Added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804170815394_NormalizedTables.resx">
-      <DependentUpon>201804170815394_NormalizedTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804190610485_Redo_Migration.resx">
+      <DependentUpon>201804190610485_Redo_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

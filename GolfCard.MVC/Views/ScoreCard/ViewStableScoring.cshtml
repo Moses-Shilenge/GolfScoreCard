@@ -1,16 +1,12 @@
-﻿@model IEnumerable<GolfCard.MVC.Models.ScoreCardView>
+﻿@model IEnumerable<GolfCard.MVC.Models.StableFord>
 
 @{
-    ViewBag.Title = "ViewScoreCard";
+    ViewBag.Title = "ViewStableScoring";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
-    .nameTextColumn {
-        width: 170px;
-    }
-
-    .btn a {
+   .btn a {
         color: white;
         text-decoration: none;
     }
@@ -21,11 +17,10 @@
     }
 </style>
 
-<h2>Previous Golf Scores</h2>
-
+<h2>StableFord Points</h2>
 <br />
-<br/>
-<table class="table table-bordered">
+<br />
+<table class="table table-striped">
     <tr>
         <th>
             HOLES
@@ -83,6 +78,7 @@
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     <tr>
         <th>
@@ -116,11 +112,15 @@
 
     @foreach (var item in Model)
     {
+        var inPoints = 0;
+        var outPoints = 0;
+        var totPoints = 0;
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Player, new { @class = "nameTextColumn" })
             </td>
-            @foreach (var modelitem in item.Hole.Take(9))
+             @foreach (var modelitem in item.Hole.Take(9))
                 {
                 <td>
                     @Html.DisplayFor(m => modelitem)
@@ -148,17 +148,45 @@
                 @Html.DisplayFor(modelItem => item.NET)
             </td>
             <td style="width:126px">
-                @Html.ActionLink("Edit", "EditCard", new { id = item.Id }) | @Html.ActionLink("Delete", "DeleteCard", new { id = item.Id })
+                @Html.ActionLink("Edit", "EditCard", new { Id = item.Id }) | @Html.ActionLink("Delete", "DeleteCard", new { Id = item.Id })
             </td>
+        </tr>
+        <tr>
+            <td>
+                Stableford points
+            </td>
+            @foreach (var modelitem in item.Points.Take(9))
+                {
+                <td>
+                    @Html.DisplayFor(m => modelitem)
+                </td>
+
+                inPoints += modelitem;
+            }
+            <td>
+                @inPoints
+            </td>
+            @foreach (var modelitem in item.Points.Skip(9).Take(9))
+                {
+                <td>
+                    @Html.DisplayFor(m => modelitem)
+                </td>
+
+                outPoints += modelitem;
+            }
+            <td>
+                @(totPoints = inPoints + outPoints)
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StableFordsPoints)
+            </td>
+            <td></td>
         </tr>
     }
 </table>
 
-<div class="btn-group" role="group">
-    <button type="button" class="btn btn-primary">
-        @Html.ActionLink("Create New Score Card", "CreateCard")
-    </button>
-    <button type="button" class="btn btn-primary">
-        @Html.ActionLink("StableFord Points", "ViewStableScoring")
-    </button>
-</div>
+<button class="btn btn-primary">
+    @Html.ActionLink("Create New Score Card", "CreateCard")
+</button>

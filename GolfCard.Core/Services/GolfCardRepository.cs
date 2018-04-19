@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GolfCard.SqlClient.DTO;
 using GolfCard.SqlClient;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace GolfCard.Core.Services
 {
@@ -15,6 +17,34 @@ namespace GolfCard.Core.Services
         public GolfCardRepository()
         {
             _sqlConnect = new SQLDBContext();
+        }
+
+        public void EditCard(Game game)
+        {
+            _sqlConnect.Set<Game>().AddOrUpdate(game);
+
+            var sqlCommands = new List<string>();
+
+            foreach (var item in game.Shots)
+            {
+                // not the best approach, but for now till I get a better way to update the shot. I will use this
+                sqlCommands.Add($"update shots set shots = {item.Shots} where tee_Id = '{item.Tee.Id}' and game_Id = '{game.Id}'");                
+            }
+
+            var updateStatements = string.Join("\n", sqlCommands);
+
+            _sqlConnect.Database.ExecuteSqlCommand(updateStatements);
+            _sqlConnect.SaveChanges();
+        }
+
+        public IList<Tee> GetAllParsFromTees()
+        {
+            return _sqlConnect.Tees.ToList();
+        }
+
+        public Game GetGameById(Guid Id)
+        {
+            return GetScoreBoard().Where(g => g.Id == Id).FirstOrDefault();
         }
 
         public IEnumerable<Game> GetScoreBoard()
@@ -34,10 +64,10 @@ namespace GolfCard.Core.Services
                     Shots = shots,
                     HCP = game.HCP,
                     Date = game.Date,
-                    IN_1 = game.IN_1,
-                    IN_2 = game.IN_2,
-                    NET = game.NET,
+                    IN = game.IN,
                     OUT = game.OUT,
+                    NET = game.NET,
+                    TOT = game.OUT,
                     Id = game.Id
                 });
             }
@@ -65,9 +95,9 @@ namespace GolfCard.Core.Services
     {
         public Guid Id { get; set; }
         public Guid Player_Id { get; set; }
-        public int IN_1 { get; set; }
-        public int IN_2 { get; set; }
+        public int IN { get; set; }
         public int OUT { get; set; }
+        public int TOT { get; set; }
         public int HCP { get; set; }
         public int NET { get; set; }
         public DateTime Date { get; set; }

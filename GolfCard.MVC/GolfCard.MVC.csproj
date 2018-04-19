@@ -153,6 +153,7 @@
     <Compile Include="Mapper\GolfScoreMapper.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\StableFord.cs" />
     <Compile Include="Models\ScoreCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <Content Include="Views\ScoreCard\CreateCard.cshtml" />
     <Content Include="Views\ScoreCard\ViewScoreCard.cshtml" />
     <Content Include="Views\ScoreCard\EditCard.cshtml" />
+    <Content Include="Views\ScoreCard\ViewStableScoring.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

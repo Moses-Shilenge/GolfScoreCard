@@ -5,78 +5,143 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditCard</h2>
+<style>
+    input {
+        width: 30px;
+    }
 
+    .nameTextColumn {
+        width: 170px;
+    }
+</style>
+
+<h2>Edit Card</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ScoreCardView</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Player, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Player, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Player, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                HOLES
+            </th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>IN</th>
+            <th>10</th>
+            <th>11</th>
+            <th>12</th>
+            <th>13</th>
+            <th>14</th>
+            <th>15</th>
+            <th>16</th>
+            <th>17</th>
+            <th>18</th>
+            <th>OUT</th>
+            <th>TOTAL</th>
+            <th>HANDICAP</th>
+            <th>NET</th>
+        </tr>
+        <tr>
+            <th>
+                YARDS
+            </th>
+            <th>365</th>
+            <th>423</th>
+            <th>230</th>
+            <th>463</th>
+            <th>421</th>
+            <th>210</th>
+            <th>522</th>
+            <th>407</th>
+            <th>465</th>
+            <th>3421</th>
+            <th>537</th>
+            <th>375</th>
+            <th>168</th>
+            <th>358</th>
+            <th>395</th>
+            <th>425</th>
+            <th>513</th>
+            <th>375</th>
+            <th>510</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                PAR
+            </th>
+            <th>4</th>
+            <th>4</th>
+            <th>3</th>
+            <th>4</th>
+            <th>4</th>
+            <th>4</th>
+            <th>3</th>
+            <th>5</th>
+            <th>4</th>
+            <th>39</th>
+            <th>4</th>
+            <th>5</th>
+            <th>4</th>
+            <th>3</th>
+            <th>4</th>
+            <th>4</th>
+            <th>4</th>
+            <th>5</th>
+            <th>4</th>
+            <th>33</th>
+            <th>72</th>
+            <th></th>
+            <th>72</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Player)
+            </td>
+           @for (int j = 0; j < 18; j++)
+           {
+                <td>
+                    @Html.EditorFor(model => model.Hole[j])
+                    @Html.ValidationMessageFor(model => model.Hole[j], "", new { @class = "text-danger" })
+                </td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IN_1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IN_1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IN_1, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IN_2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IN_2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IN_2, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OUT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OUT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OUT, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HandiCap, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HandiCap, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HandiCap, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NET, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NET, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NET, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+                if (j == 9)
+                {
+                    <td>
+                    </td>
+                }
+            }
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.HandiCap)
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <p class="alert-info">
+        Make sure each entry has a Player Name and Score for every hole indexed 1 to 18. Any imcomplete entry will be ignored.
+    </p>
+    <button class="btn btn-primary">
+        Calculate Scores
+    </button>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

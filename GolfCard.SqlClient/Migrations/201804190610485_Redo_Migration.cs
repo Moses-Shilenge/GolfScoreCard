@@ -3,7 +3,7 @@ namespace GolfCard.SqlClient.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NormalizedTables : DbMigration
+    public partial class Redo_Migration : DbMigration
     {
         public override void Up()
         {
@@ -12,9 +12,9 @@ namespace GolfCard.SqlClient.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
-                        IN_1 = c.Int(nullable: false),
-                        IN_2 = c.Int(nullable: false),
+                        IN = c.Int(nullable: false),
                         OUT = c.Int(nullable: false),
+                        TOT = c.Int(nullable: false),
                         HCP = c.Int(nullable: false),
                         NET = c.Int(nullable: false),
                         Date = c.DateTime(nullable: false),
@@ -59,28 +59,10 @@ namespace GolfCard.SqlClient.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            DropTable("dbo.ScoreCards");
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.ScoreCards",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false, identity: true),
-                        Index = c.Int(nullable: false),
-                        Yards = c.Int(nullable: false),
-                        Par = c.Int(nullable: false),
-                        Shots = c.Int(nullable: false),
-                        Player_1 = c.Int(nullable: false),
-                        Player_2 = c.Int(nullable: false),
-                        Player_3 = c.Int(nullable: false),
-                        Player_4 = c.Int(nullable: false),
-                        Player_5 = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
             DropForeignKey("dbo.Shots", "Game_Id", "dbo.Games");
             DropForeignKey("dbo.Shots", "Tee_Id", "dbo.Tees");
             DropForeignKey("dbo.Games", "Player_Id", "dbo.Players");
