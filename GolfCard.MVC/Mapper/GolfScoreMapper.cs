@@ -29,6 +29,7 @@ namespace GolfCard.MVC.Mapper
                     Id = item.Id,
                     Player = new SqlClient.DTO.Player
                     {
+                        Id = item.Id,
                         Name = item.Player
                     },
                     Shots = MapShots(item),
@@ -48,6 +49,7 @@ namespace GolfCard.MVC.Mapper
             {
                 shots.Add(new Shot
                 {
+                    Id = playerScores.Id,
                     Tee = _teeRepository.GetTeeByIndex(i),
                     Shots = playerScores.Hole[i]
                 });

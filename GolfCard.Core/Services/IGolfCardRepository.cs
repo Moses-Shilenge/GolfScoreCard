@@ -14,5 +14,6 @@ namespace GolfCard.Core.Services
         IList<Tee> GetAllParsFromTees();
         Game GetGameById(Guid id);
         void EditCard(Game game);
+        void DeleteCardById(Guid id);
     }
 }

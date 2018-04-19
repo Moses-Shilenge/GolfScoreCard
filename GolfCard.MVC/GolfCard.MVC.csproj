@@ -204,6 +204,7 @@
     <Content Include="Views\ScoreCard\ViewScoreCard.cshtml" />
     <Content Include="Views\ScoreCard\EditCard.cshtml" />
     <Content Include="Views\ScoreCard\ViewStableScoring.cshtml" />
+    <Content Include="Views\ScoreCard\DeleteCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

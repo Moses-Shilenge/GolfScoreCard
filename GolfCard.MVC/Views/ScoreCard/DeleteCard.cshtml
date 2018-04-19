@@ -1,21 +1,11 @@
 ﻿@model GolfCard.MVC.Models.ScoreCardView
 
 @{
-    ViewBag.Title = "EditCard";
+    ViewBag.Title = "DeleteCard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    input {
-        width: 30px;
-    }
-
-    .nameTextColumn {
-        width: 170px;
-    }
-</style>
-
-<h2>Edit Card</h2>
+<h2>DeleteCard</h2>
 <br />
 <p class="alert-danger">
     @ViewBag.ErrorMessage
@@ -112,24 +102,31 @@
         </tr>
         <tr>
             <td>
-                @Html.EditorFor(model => model.Player, new { @class = "nameTextColumn", disabled = "disabled" })
+                @Html.DisplayFor(model => model.Player)
             </td>
-           @for (int j = 0; j < 18; j++)
-           {
-                if (j == 9)
+            @for (int i = 0; i < 18; i++)
+            {
+                if (i == 9)
                 {
-                    <td></td>
+                    <td>
+                        @Html.DisplayFor(model => model.IN)
+                    </td>
                 }
                 <td>
-                    @Html.EditorFor(model => model.Hole[j])
-                    @Html.ValidationMessageFor(model => model.Hole[j], "", new { @class = "text-danger" })
+                    @Html.DisplayFor(model => model.Hole[i])
                 </td>
-
-           }
-            <td></td>
-            <td></td>
+            }
             <td>
-                @Html.TextBoxFor(x => x.HandiCap)
+                @Html.DisplayFor(model => model.OUT)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TOT)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.HandiCap)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.NET)
             </td>
             <td></td>
         </tr>
@@ -138,11 +135,8 @@
     <p class="alert-info">
         Make sure each entry has a Player Name and Score for every hole indexed 1 to 18. Any imcomplete entry will be ignored.
     </p>
-    <button class="btn btn-primary">
-        Calculate Scores
-    </button>
-}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <button class="btn btn-danger">
+       Delete Score
+    </button>
 }

@@ -72,14 +72,43 @@ namespace GolfCard.MVC.Controllers
             var scoreboard = (_golfScoreMapper.MapToScoreCardView(new List<Game>() { player }));
             return View(scoreboard.FirstOrDefault());
         }
-        
-        // This function results in a bug, fix TODO
-        [HttpPut]
+
+        public ActionResult DeleteCard(Guid Id)
+        {
+            var player = _golfScoreCardLogic.GetGameById(Id);
+            var scoreboard = (_golfScoreMapper.MapToScoreCardView(new List<Game>() { player }));
+            return View(scoreboard.FirstOrDefault());
+        }
+
+        [HttpPost]
         public ActionResult EditCard(ScoreCardView scoreCardView)
         {
-            var scores = _golfScoreCardLogic.WorkOutScore(_golfScoreMapper.MapToGameModel(new List<ScoreCardView>() { scoreCardView })).Result;
-            _golfScoreCardLogic.EditScores(scores.FirstOrDefault());
-            return RedirectToAction("ViewScoreCard");
+            if (scoreCardView.Player != null && !scoreCardView.Hole.Contains(0))
+            {
+                var scores = _golfScoreCardLogic.WorkOutScore(_golfScoreMapper.MapToGameModel(new List<ScoreCardView>() { scoreCardView })).Result;
+                _golfScoreCardLogic.EditScores(scores.FirstOrDefault());
+                return RedirectToAction("ViewScoreCard");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "The scorecard contains invalid entries.\nPlease insert all the shots before clicking on the SUBMIT button.";
+                return View();
+            }            
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCard(ScoreCardView scoreCardView)
+        {
+            try
+            {
+                _golfScoreCardLogic.DeleteScores(scoreCardView.Id);
+                return RedirectToAction("ViewScoreCard");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = $"Error occurered while deleting the score \n {ex}";
+                return View();
+            }
         }
     }
 }

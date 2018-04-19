@@ -19,9 +19,17 @@ namespace GolfCard.Core.Services
             _sqlConnect = new SQLDBContext();
         }
 
+        public void DeleteCardById(Guid Id)
+        {
+            var game = GetGameById(Id);
+            _sqlConnect.Database.ExecuteSqlCommand($"");
+            _sqlConnect.SaveChanges();
+        }
+
         public void EditCard(Game game)
         {
             _sqlConnect.Set<Game>().AddOrUpdate(game);
+            _sqlConnect.Set<Player>().AddOrUpdate(game.Player);
 
             var sqlCommands = new List<string>();
 

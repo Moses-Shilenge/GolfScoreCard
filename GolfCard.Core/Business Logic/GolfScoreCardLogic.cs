@@ -119,5 +119,10 @@ namespace GolfCard.Core.Business_Logic
 
             return totalPoints;
         }
+
+        public void DeleteScores(Guid Id)
+        {
+            _golfCardRepository.DeleteCardById(Id);
+        }
     }
 }
