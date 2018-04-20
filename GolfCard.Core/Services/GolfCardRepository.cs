@@ -22,7 +22,8 @@ namespace GolfCard.Core.Services
         public void DeleteCardById(Guid Id)
         {
             var game = GetGameById(Id);
-            _sqlConnect.Database.ExecuteSqlCommand($"");
+
+            _sqlConnect.Database.ExecuteSqlCommand($"delete from Shots where game_Id = '{game.Id}' delete from Games where Id = '{game.Id}'");
             _sqlConnect.SaveChanges();
         }
 
@@ -83,10 +84,14 @@ namespace GolfCard.Core.Services
             return gameColl;
         }
 
-        public void SaveCard(IEnumerable<Game> playerScores)
+        public void CreateCard(IEnumerable<Game> playerScores)
         {
             foreach (var item in playerScores)
             {
+                var player = _sqlConnect.Players.Where(p => p.Name == item.Player.Name).FirstOrDefault();
+
+                if (player != null) { _sqlConnect.Players.Attach(item.Player); }
+
                 foreach (var tee in item.Shots)
                 {
                     _sqlConnect.Tees.Attach(tee.Tee);

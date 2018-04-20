@@ -48,7 +48,7 @@ namespace GolfCard.Core.Business_Logic
 
         public void SaveScores(IEnumerable<Game> scores)
         {
-            _golfCardRepository.SaveCard(scores);
+            _golfCardRepository.CreateCard(scores);
         }
 
         public Game GetGameById(Guid Id)

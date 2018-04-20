@@ -9,7 +9,7 @@ namespace GolfCard.Core.Services
 {
     public interface IGolfCardRepository
     {
-        void SaveCard(IEnumerable<Game> scores);
+        void CreateCard(IEnumerable<Game> scores);
         IEnumerable<Game> GetScoreBoard();
         IList<Tee> GetAllParsFromTees();
         Game GetGameById(Guid id);
